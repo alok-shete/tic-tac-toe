@@ -44,8 +44,20 @@ class App extends Component {
             message: t.concat(" Player win "),
           });
         } else {
+          var count = 0;
+          var over;
+          for (var i = 0; i < 9; i++) {
+            if (a[i] === "X" || a[i] === "O") {
+              count += 1;
+            }
+          }
+          if (count > 8) {
+            over = "Tie";
+          } else {
+            over = m.concat(" player Turn");
+          }
           this.setState({
-            message: m.concat(" player Turn"),
+            message: over,
           });
         }
       }
@@ -58,7 +70,7 @@ class App extends Component {
       turn: true,
       boxes: Array(9).fill(null),
       undo: "",
-      message: "X Player Trun",
+      message: "X Player Turn",
     });
   };
 
@@ -71,7 +83,7 @@ class App extends Component {
       last = his[his.length - 1];
       last = parseInt(last);
       player = a[last];
-      a[last] = "";
+      a[last] = null;
       his = his.substring(0, his.length - 1);
       this.setState({
         win: false,
